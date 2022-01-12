@@ -1,0 +1,183 @@
+/*
+ * Jamie Cha
+ * Bingo Verifier Project (Java)
+ * CSC 1800
+ */
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class bingoVerifier {
+
+	//METHOD TO ROTATE WINNING PATTERN
+	public static void rotatePattern(int[][] pattern){
+		int row = pattern.length;
+		for (int i = 0; i < row; i++){
+			for (int j = i; j < row; j++){
+				int temp = pattern[i][j];
+				pattern[i][j] = pattern[j][i];
+				pattern[j][i] = temp;
+			}
+		}
+		for (int i = 0; i< row; i++){
+			for(int j = 0; j< row/2; j++){
+				int temp = pattern[i][j];
+				pattern[i][j] = pattern[i][row-1-j];
+				pattern[i][row-1-j] = temp;
+			}
+		}
+	}
+
+	//MAIN METHOD
+	public static void main(String[] args) {
+
+		Scanner scan = new Scanner(System.in);
+		int[][] winningPattern = new int[5][5];
+		ArrayList<Integer> numbersCalled = new ArrayList<>();
+		int[][] playersCard = new int[5][5];
+
+		//INPUT WINNING PATTERN TEMPLATE ------------------------------------------------------------
+		for(int i=0; i< 5;i++) {            
+			for(int j=0; j< 5;j++) {
+				winningPattern[i][j] = scan.nextInt();
+			}
+		}
+
+		//A BLANK LINE ------------------------------------------------------------------------------
+		scan.nextLine();
+		scan.nextLine();
+
+		//INPUT BINGO NUMBERS CALLED ----------------------------------------------------------------
+		String[] bingoNums = scan.nextLine().split(" ");
+		for (int i = 0; i < bingoNums.length; i++) {
+			numbersCalled.add(Integer.parseInt(bingoNums[i]));
+		}
+
+		//INPUT PLAYERS BINGO CARD ------------------------------------------------------------------
+		for(int i = 0; i < 5; i++) {            
+			for(int j = 0; j < 5; j++) {
+				playersCard[i][j] = scan.nextInt();
+			}
+		}
+
+		//COMPARE NUMBERSCALLED WITH PLAYERS BINGO CARD ---------------------------------------------
+		int[][] translatedCard = new int[5][5];
+
+		//WINNING PATTERN IS FIXED PATTERN ----------------------------------------------------------
+		int[][] newCard = new int[5][5];
+		if (Arrays.deepToString(winningPattern).contains("1")) {
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if (numbersCalled.contains(playersCard[i][j])) {
+						translatedCard[i][j] = 1;
+					} else {
+						translatedCard[i][j] = 0;
+					}
+				}
+			}
+			translatedCard[2][2] = 1; //FREE SPACE
+
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if ((winningPattern[i][j]) == 1 && (translatedCard[i][j]) == 1) {
+						newCard[i][j] = 1;
+					} else {
+						newCard[i][j] = 0;
+					}
+				}
+			}
+
+			boolean a = Arrays.deepEquals(newCard, winningPattern);
+			if (a == true) {
+				System.out.println("VALID BINGO");
+			} else {
+				System.out.println("NO BINGO");
+			}
+		} 
+
+		//WINNING PATTERN IS CRAZY PATTERN -----------------------------------------------------------
+		else { 
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if (numbersCalled.contains(playersCard[i][j])) {
+						translatedCard[i][j] = 4;
+					} else {
+						translatedCard[i][j] = 0;
+					}
+				}
+			}
+			translatedCard[2][2] = 4; //FREE SPACE
+
+			//COMPARE WINNING PATTERN WITH TRANSLATED CARD TO MAKE NEW CARD
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if ((winningPattern[i][j]) == 4 && (translatedCard[i][j]) == 4) {
+						newCard[i][j] = 4;
+					} else {
+						newCard[i][j] = 0;
+					}
+				}
+			}
+			
+			if (Arrays.deepEquals(newCard, winningPattern)) {
+				System.out.println("VALID BINGO");
+			} else {
+				rotatePattern(winningPattern);
+			}
+			
+			//AFTER FIRST ROTATION
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if ((winningPattern[i][j]) == 4 && (translatedCard[i][j]) == 4) {
+						newCard[i][j] = 4;
+					} else {
+						newCard[i][j] = 0;
+					}
+				}
+			}
+			if (Arrays.deepEquals(newCard, winningPattern)) {
+				System.out.println("VALID BINGO");
+				System.exit(0);
+			} else {
+				rotatePattern(winningPattern);
+			}
+			
+			//AFTER SECOND ROTATION
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if ((winningPattern[i][j]) == 4 && (translatedCard[i][j]) == 4) {
+						newCard[i][j] = 4;
+					} else {
+						newCard[i][j] = 0;
+					}
+				}
+			}
+			
+			if (Arrays.deepEquals(newCard, winningPattern)) {
+				System.out.println("VALID BINGO");
+				System.exit(0);
+			} else {
+				rotatePattern(winningPattern);
+			}
+			
+			//AFTER THIRD ROTATION
+			for (int i = 0; i < 5; i++) {
+				for (int j = 0; j < 5; j++) {
+					if ((winningPattern[i][j]) == 4 && (translatedCard[i][j]) == 4) {
+						newCard[i][j] = 4;
+					} else {
+						newCard[i][j] = 0;
+					}
+				}
+			}
+			
+			if (Arrays.deepEquals(newCard, winningPattern)) {
+				System.out.println("VALID BINGO");
+				System.exit(0);
+			} else {
+				System.out.println("NO BINGO");
+			}
+		}
+	}
+}
