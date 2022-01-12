@@ -1,0 +1,224 @@
+//*************************************************
+// Project 04     Response Time Experiment
+// Author: Jamie Cha
+// How long does it take for a person to type the 
+// word for a number?
+//*************************************************
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class Project04
+{
+   public static void main(String[] args)
+   {
+      Scanner scanner = new Scanner(System.in);
+      Random rand = new Random();
+      
+      //input name
+      System.out.print("Please enter your name: ");
+      String name = scanner.nextLine();
+      //welcome message
+      System.out.print("Hello " + name + ".\nWelcome to my experiment."
+      + "In this experiment, you will be tested on how fast "
+      + "\nyou can type the word for a number. \nFor example, if you are presented "
+      + "with the number '6', then you will have to spell "
+      + "\nit out like this --> 'six' (Press <ENTER>)");
+      scanner.nextLine();
+      
+      System.out.println("\n\nYou will be presented with four numbers. Good Luck.");
+      
+      int NUM_TRIALS = 4;
+      int numCorrect = 0;
+      long totalTime = 0;
+      long averageTime = totalTime / 4;
+      
+      //start
+      for (int count = 0; count < 4; count ++)
+      {
+         int a = rand.nextInt(10);
+      //Ready
+         System.out.println("\nHit <ENTER> when ready.");
+         scanner.nextLine();
+      //print question
+         System.out.println(a);  
+      //startTime = current time              
+         long startTime = System.currentTimeMillis();
+         String response = scanner.nextLine();
+         
+         boolean results = false;
+      //switch statements
+      switch (a) 
+   {
+      case 0: 
+         if (response.equals("zero"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 1:
+          if (response.equals("one"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+      case 2:
+          if (response.equals("two"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 3:
+          if (response.equals("three"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 4: 
+          if (response.equals("four"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 5:
+          if (response.equals("five"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 6:
+          if (response.equals("six"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 7:
+          if (response.equals("seven"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 8:
+          if (response.equals("eight"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 9:
+          if (response.equals("nine"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+         
+      case 10:
+          if (response.equals("ten"))
+         {
+            
+            results = true;
+         }
+         else
+         {
+            
+            results = false;
+         }
+         break;
+      }
+
+      //endtime = current time  
+         long endTime = System.currentTimeMillis();
+      //reactionTime = endTime - startTime
+         long reactionTime = endTime - startTime;
+         totalTime = totalTime + reactionTime;   
+      //print response time in milliseconds   
+         System.out.println("That took " + reactionTime + " milliseconds");
+         if (results == true)
+         {
+            System.out.println("Correct!");
+            numCorrect ++;
+         }
+         else
+         {
+            System.out.println("Incorrect");
+         }
+         
+      }
+      
+      averageTime = totalTime / 4;
+      System.out.println("\n------------------------\nYour average time: " + averageTime + " milliseconds"
+      + "\nNumber correct: " + numCorrect + " out of 4");
+
+      
+
+   }
+   
+
+}
