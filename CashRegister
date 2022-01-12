@@ -1,0 +1,83 @@
+//********************************************************************
+// CashRegister.java            Author: Jamie Cha
+// January 31, 2020 
+// Purpose: create an application that displays how a monetary amount
+// entered as cents) should be given out in coins.
+//********************************************************************
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class CashRegister
+{
+   public static void main (String[] args)
+   {
+   Scanner scan = new Scanner(System.in);
+
+   //variables
+   int quarters;
+   int dimes;
+   int nickels;
+   int pennies;
+   int totalCents;
+   int remainingCents;
+   int remainingCents2;
+   int remainingCents3;
+   
+   try
+   {
+   //input amount of cents
+   System.out.print("Enter an amount (in cents) -->");
+   totalCents = scan.nextInt();
+   System.out.print(totalCents + " cents = ");
+   
+   //calculations
+   //QUARTERS
+   quarters = (totalCents / 25);
+   remainingCents = totalCents - (25 * quarters);
+   //DIMES
+   dimes = (remainingCents / 10);
+   remainingCents2 = remainingCents - (10 * dimes);
+   //NICKELS
+   nickels = (remainingCents2 / 5);
+   remainingCents3 = remainingCents2 - (5 * nickels);
+   //PENNIES
+   pennies = remainingCents3;
+   
+   //print calculations with correct identification
+   //QUARTERS
+   if (quarters == 1)
+      System.out.print("\n\t" + quarters + " quarter");
+   else
+      System.out.print("\n\t" + quarters + " quarters");
+   //DIMES
+   if (dimes == 1)
+      System.out.print("\n\t" + dimes + " dime");
+   else
+      System.out.print("\n\t" + dimes + " dimes");
+   //NICKELS
+   if (nickels == 1)
+      System.out.print("\n\t" + nickels + " nickel");
+   else
+      System.out.print("\n\t" + nickels + " nickels");
+   //PENNIES
+   if (pennies == 1)
+      System.out.print("\n\t" + pennies + " penny");
+   else
+      System.out.print("\n\t" + pennies + " pennies");
+      
+   }
+   
+   catch (InputMismatchException exception)
+   {
+      System.out.println("Does not work.");
+   }
+      
+      
+   //goodbye message
+   System.out.print("\n\nGoodbye");
+   
+    
+   }
+}   
+   
