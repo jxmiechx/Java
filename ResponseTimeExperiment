@@ -1,0 +1,62 @@
+//// ResponseTimeExperiment.java 
+// Measure response time for addition problems.
+// Jamie Cha
+import java.util.Scanner;
+import java.util.Random;
+
+public class ResponseTimeExperiment
+{
+   public static void main(String[] args)
+   {
+      Scanner in = new Scanner(System.in);
+      Random rand = new Random();
+      
+      //input name
+      System.out.print("Please enter your name: ");
+      String name = in.nextLine();
+      //print personalized welcome message & instructions
+      System.out.println("Hello " + name 
+         + ". Please answer as fast as you can.");
+      int numCorrect = 0;
+      long totalTime = 0;
+      long averageTime = totalTime / 4;
+      
+      //repeat 4 times
+      for (int count = 0; count < 4; count ++)
+      {
+         //a = random int
+         int a = rand.nextInt(100);
+         //b = random int
+         int b = rand.nextInt(100);
+         
+         // wait for user to hit ENTER
+         System.out.println("\n\nHit <ENTER> when ready.");
+         in.nextLine();      
+   
+         //print question using a,b
+         System.out.print(a + " + " + b + " = ");
+         //startTime = current time
+         long startTime = System.currentTimeMillis();
+         //input response & convert to number
+         String response = in.nextLine();
+         int number = Integer.parseInt(response);
+         //endtime = current time  
+         long endTime = System.currentTimeMillis();
+         //outcome = 1 or 0 (number is correct or incorrect)
+         int outcome = (number == a + b? 1 : 0);
+         numCorrect = numCorrect + outcome;
+         //reactionTime = endTime - startTime
+         long reactionTime = endTime - startTime;
+         totalTime = totalTime + reactionTime;
+         //print outcome as "Correct" or "Incorrect"
+         System.out.println(outcome == 1? "Correct!" : "Incorrect.");
+         //print response time in milliseconds   
+         System.out.println("That took " + reactionTime 
+                                         + " milliseconds");
+      }
+      averageTime = totalTime / 4;
+      System.out.println("Your average time: " + averageTime + "\nNumber Correct: " + numCorrect);
+      //print goodbye message                                
+      System.out.println("Thank you "  + name + ", goodbye.");
+   }
+}
